@@ -1,12 +1,40 @@
+import random
+
+def get_personagens():
+    arquivo = open("resources/personagens.txt", "r")
+    lista_personagens = []
+    for i in arquivo:
+        personagem = {
+            'nome' : i[:-1],
+            'vida' : 100,
+            'dano' : random.randrange(20,60)
+        }
+        lista_personagens.append(personagem)
+
+    arquivo.close()
+
+
+    return lista_personagens
+
+
 def criacao_personagem():
     print("Crição do personagem")
     nome = input("Digite seu nome, nobre guerreiro(a): ")
+    print("Olá: " + nome + " seus atributos de vida são: 100 e" +
+    "de dano são: 50 ")
 
-    return nome
+    principal = {
+        'nome': nome,
+        'vida': 100,
+        'dano': 50
+    }
+
+    return principal
 
 def start():
     personagem_principal = criacao_personagem();
-    print(personagem_principal)
+    print(get_personagens())
+
 
 def main():
     print("##########################################################")
