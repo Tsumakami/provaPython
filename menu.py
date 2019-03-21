@@ -20,8 +20,8 @@ def get_personagens():
 def criacao_personagem():
     print("Crição do personagem")
     nome = input("Digite seu nome, nobre guerreiro(a): ")
-    print("Olá: " + nome + " seus atributos de vida são: 100 e" +
-    "de dano são: 50 ")
+    print("Olá " + nome + ", seus atributos de vida são: 100 e " +
+    "de dano são: 50 \n")
 
     principal = {
         'nome': nome,
@@ -31,10 +31,36 @@ def criacao_personagem():
 
     return principal
 
+def cenario_um():
+    print("O mundo foi devastado e agora é governardo pelo Rei Malvado.\n"+
+        "Resta a você salvar o reino... Na sua jornada para a batalha,\n"+
+        "há um caminho pela floresta ou pela montanha.\n" +
+        "Qual a sua escolha?\n")
+    print(" " * 15,"[1] FLORESTA")
+    print(" " * 15,"[2] MONTANHA")
+    entrada = int(input())
+    while(entrada != 1 and entrada != 2):
+        print("Utilize apenas os números 1 ou 2.")
+        entrada = int(input())
+
+    return entrada
+
+def montanha(personagem_principal, personagens):
+    print("E então o(a) grande Cavaleiro(a) "+ personagem_principal['nome'] +
+        "decidiu seguir pelas montanhas frias e cheias de gelo do sudoeste" +
+        " do Himalaia· Após muito sofrimento quando, está quase chegando ao" +
+        "topo, avista um andarilho, ao aproximar-se, o mesmo o " +
+        "interroga. Para aonde vai, jovem Cavaleiro(a), gostaria de um agasalho?" +
+        "Você fica intrigado com a situação, várias coisas passam por sua cabeca," +
+        "mas sem hesitar você:\n")
+    print()
+def cenario_dois():
+
 def start():
     personagem_principal = criacao_personagem();
-    print(get_personagens())
-
+    get_personagens()
+    print("Sua jornada inicia agora "+ personagem_principal['nome'] +". Boa sorte!\n")
+    print(cenario_um())
 
 def main():
     print("##########################################################")
@@ -47,12 +73,12 @@ def main():
     print(" " * 15, "[0] SAIR")
 
     entrada = int(input());
-    if(entrada != 1 and entrada != 0):
+    while(entrada != 1 and entrada != 0):
         print("Utilize apenas os números 1 ou 0.")
+        entrada = int(input())
+    if(entrada == 0):
+        exit()
     else:
-        if(entrada == 0):
-            exit()
-        else:
-            start()
+        start()
 
 main()
