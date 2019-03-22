@@ -50,7 +50,7 @@ def cenario_um():
 
     return entradaValida
 
-def montanha(personagem_principal, personagens):
+def cenario_montanha(personagem_principal, personagens):
     print("E então o(a) grande Cavaleiro(a) "+ personagem_principal['nome'] + "\n"+
         "decidiu seguir pelas montanhas frias e cheias de gelo do sudoeste\n" +
         " do Himalaia· Após muito sofrimento quando, está quase chegando ao\n" +
@@ -85,7 +85,7 @@ def montanha(personagem_principal, personagens):
 
     return vet
 
-def floresta(personagem_principal, personagens):
+def cenario_floresta(personagem_principal, personagens):
     print("E então o(a) grande Cavaleiro(a) "+ personagem_principal['nome'] + "\n"+
         "decidiu seguir pela floresta, as árvores fazem barulho durante todo o percurso,\n"+
         " no fim do caminho, alguém surge por trás delas oferecendo alimento. \n" +
@@ -126,7 +126,7 @@ def start():
     print("Sua jornada inicia agora "+ personagem_principal['nome'] +". Boa sorte!\n")
     resposta_cenario_um = cenario_um()
     if(resposta_cenario_um == 2):
-        saida = montanha(personagem_principal, personagens)
+        saida = cenario_montanha(personagem_principal, personagens)
         decisao_tomada = saida[0]
         amigo = saida[1]
         if(int(saida[0]) == 1):
@@ -134,7 +134,7 @@ def start():
         else:
             print("GAME OVER")
     else:
-        saida = floresta(personagem_principal, personagens)
+        saida = cenario_floresta(personagem_principal, personagens)
         if(saida == 2):
             cenario_final(personagem_principal, personagens, "sozinho")
         else:
