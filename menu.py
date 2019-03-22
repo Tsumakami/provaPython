@@ -1,4 +1,22 @@
 import random
+def game_over(personagem_principal):
+    print("\n"," " * 5,"GAME OVER\n")
+    print("Nome", " "* 15, "Score\n")
+    tam = 19 - len(personagem_principal['nome'])
+    print(personagem_principal['nome'], " "* tam, personagem_principal['score'],"\n")
+
+    print("Deseja Reiniciar o jogo?\n")
+    print("[1] Reiniciar")
+    print("[2] Sair")
+
+    entrada = int(input())
+    entradaValida = validacao_um_e_dois(entrada)
+
+    if(entradaValida == 1):
+        start()
+    else:
+        exit()
+
 def batalha(personagem_principal, inimigo, chance_inimigo):
     inimigo_vida = str(inimigo['vida'])
     personagem_principal_vida = str(personagem_principal['vida'])
@@ -161,8 +179,8 @@ def cenario_final(personagem_principal, personagens, amigo):
         vencedor = batalha(personagem_principal, inimigo, 2)
         if(vencedor['nome'] == inimigo['nome']):
             print("Você foi morto com honra em uma batalha!")
-            print("GAME OVER")
-            print(personagem_principal['score'])
+            game_over(personagem_principal)
+
         else:
             print("Como bonus de vitória, " + personagem_principal['nome'] + ", sua vida foi restaurada")
             personagem_principal['vida'] = 100
@@ -198,8 +216,7 @@ def cenario_final(personagem_principal, personagens, amigo):
 
                     else:
                         print("Você morreu bravamente, como um(a) verdadeiro(a) Guerreiro(a).")
-                        print("GAME OVER")
-                        print(personagem_principal['score'])
+                        game_over(personagem_principal)
                 else:
                     index = 0
                     inimigo = inimigos[index]
@@ -220,9 +237,7 @@ def cenario_final(personagem_principal, personagens, amigo):
         vencedor = batalha(personagem_principal, inimigo, 2)
         if(vencedor['nome'] == inimigo['nome']):
             print("Você foi morto com honra em uma batalha!")
-            print("GAME OVER")
-            print(personagem_principal['score'])
-
+            game_over(personagem_principal)
         else:
             print("Como bonus de vitória, " + personagem_principal['nome'] + ", sua vida foi restaurada")
             personagem_principal['vida'] = 100
@@ -239,8 +254,7 @@ def batalha_final(personagem_principal, inimigo, ch):
     vencedor = batalha(personagem_principal, inimigo, 5)
     if(vencedor['nome'] == inimigo['nome']):
         print("Você foi morto com honra pelo " + inimigo['nome'] + " em uma batalha!")
-        print("GAME OVER")
-        print(personagem_principal['score'])
+        game_over(personagem_principal)
     else:
         personagem_principal['score'] += 500
         print("Você acaba de salvar o Reino e consequentemente você é nomeado o(a) novo(a) Rei/Rainha...")
@@ -262,13 +276,13 @@ def start():
         if(int(saida[0]) == 1):
             cenario_final(personagem_principal, personagens, amigo)
         else:
-            print("GAME OVER")
+            game_over(personagem_principal)
     else:
         saida = cenario_floresta(personagem_principal, personagens)
         if(saida == 2):
             cenario_final(personagem_principal, personagens, "sozinho")
         else:
-            print("GAME OVER")
+            game_over(personagem_principal)
 
 def main():
     print("##########################################################")
