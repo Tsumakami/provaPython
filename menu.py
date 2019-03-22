@@ -1,4 +1,25 @@
 import random
+def batalha(personagem_principal, inimigo):
+
+    while(personagem_principal['vida'] > 0 and inimigo['vida'] > 0):
+        quem_inicia = random.randrange(0,10)
+        if(quem_inicia > 4):
+            range_inicial_dano = (personagem_principal['dano'] * 30) / 100
+            dano = random.randrange(int(range_inicial_dano), personagem_principal['dano'])
+            print(personagem_principal['nome'], dano, "Dano")
+            inimigo['vida'] -= dano
+            print(inimigo['nome'], str(inimigo['vida']) + "/100")
+        else:
+            range_inicial_dano = (inimigo['dano'] * 30) / 100
+            dano = random.randrange(int(range_inicial_dano), inimigo['dano'])
+            print(inimigo['nome'], dano, "Dano")
+            personagem_principal['vida'] -= dano
+            print(personagem_principal['nome'], str(personagem_principal['vida']) + "/100")
+
+    if(personagem_principal['vida'] > 0):
+        return personagem_principal
+    else:
+        return inimigo
 
 def validacao_um_e_dois(entrada):
     while(entrada != 1 and entrada != 2):
@@ -25,15 +46,17 @@ def get_personagens():
 
 
 def criacao_personagem():
+    dano = random.randrange(40,80)
     print("Crição do personagem")
     nome = input("Digite seu nome, nobre guerreiro(a): ")
     print("Olá " + nome + ", seus atributos de vida são: 100 e " +
-    "de dano são: 50 \n")
+    "de dano são: "+ str(dano))
 
     principal = {
         'nome': nome,
         'vida': 100,
-        'dano': 50
+        'dano': dano,
+        'score': 0
     }
 
     return principal
@@ -112,13 +135,20 @@ def cenario_floresta(personagem_principal, personagens):
 def cenario_final(personagem_principal, personagens, amigo):
     print("Na zona de guerra o(a) "+ personagem_principal['nome']+ " avista apenas \n"+
         "destruição e caos a sua frente, juntamente de 4 pessoas misteriosas.\n")
+    print("Rapidamente sem pensar duas vezes "+ personagem_principal['nome']+ " \n"+
+    " avança na direção das 4 pessoas, e durante seu avanço uma das pessoas corre \n"+
+    "em sua direção e ali começam uma das maiores batalhas do século!")
     inimigos = []
     if(amigo != "sozinho"):
         for i in personagens:
             if(i['nome'] != amigo):
                 inimigos.append(i)
 
-    print(inimigos)
+        inimigo = inimigos[random.randrange(0,3)]
+        print("Entre "+ personagem_principal['nome'] + " vs " + inimigo['nome'])
+        vencedor = batalha(personagem_principal, inimigo)
+        print(vencedor)
+
 
 def start():
     personagem_principal = criacao_personagem();
