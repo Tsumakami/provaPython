@@ -64,20 +64,23 @@ def montanha(personagem_principal, personagens):
     entrada = int(input())
     entradaValida = validacao_um_e_dois(entrada)
     vet = []
+
     if(entradaValida == 1):
         personagem_random = personagens[random.randrange(0,3)]['nome']
         print("Você pega o agasalho e fica conversando com ele(a) alguns minutos e \n"
             +" descobre que ele(a) é " + personagem_random + "\n" )
-        print("Após a conversa e a descoberta, você o(a) convida para sua jornada, pedindo" +
-        " ajuda. Sem hesitar, ele(a) aceita seu pedido e segue o caminho com você.")
+        print("Após a conversa e a descoberta, você o(a) convida para sua jornada, pedindo\n" +
+            " ajuda. Sem hesitar, ele(a) aceita seu pedido e segue o caminho com você.\n"+
+            " Após um longo tempo caminhando você e seu mais novo(a) amigo(a) chegam ao destino final\n"+
+            "a zona de guerra.\n")
     else:
         print("Você ignora o velho andarilho e segue em frente, porém, logo após andar \n"+
         "alguns minutos, você se depara com uma tremenda nevasca, o frio é intenso, sua \n"+
         "face congela, suas pernas não funcionam como antes, seus movimentos ficam lentos, \n"+
-        "o sangue não circula como antes, você até tenta, mas o frio o derrota")
-        print("Você não aguentou a tempestade, por falta de agasalho, você morreu !")
-
-    vet.append(str(entradavalida))
+        "o sangue não circula como antes, você até tenta, mas o frio o derrota\n")
+        print("Você não aguentou a tempestade, por falta de agasalho, você morreu !\n")
+        personagem_random = "sozinho"
+    vet.append(str(entradaValida))
     vet.append(personagem_random)
 
     return vet
@@ -95,7 +98,7 @@ def floresta(personagem_principal, personagens):
     entradaValida = validacao_um_e_dois(entrada)
 
     if(entradaValida == 1):
-        print("O(A) " + personagem_principal['nome'] + "comeu a maça...\n" +
+        print("O(A) " + personagem_principal['nome'] + " comeu a maça...\n" +
             "Aos poucos foi percebendo que estava ficando fraco, a visão distorcida \n"+
             "e então percebeu que a maçã estava envenenada.\n"+
             "Mas foi tarde demais...")
@@ -104,6 +107,18 @@ def floresta(personagem_principal, personagens):
         print("Você ignora a pequena criança, segue sua jornada caminhando por mais alguns \n"+
         "minutos, então finalmente você chega no seu objetivo final, a zona de guerra!")
 
+    return entradaValida
+
+def cenario_final(personagem_principal, personagens, amigo):
+    print("Na zona de guerra o(a) "+ personagem_principal['nome']+ " avista apenas \n"+
+        "destruição e caos a sua frente, juntamente de 4 pessoas misteriosas.\n")
+    inimigos = []
+    if(amigo != "sozinho"):
+        for i in personagens:
+            if(i['nome'] != amigo):
+                inimigos.append(i)
+
+    print(inimigos)
 
 def start():
     personagem_principal = criacao_personagem();
@@ -112,8 +127,18 @@ def start():
     resposta_cenario_um = cenario_um()
     if(resposta_cenario_um == 2):
         saida = montanha(personagem_principal, personagens)
+        decisao_tomada = saida[0]
+        amigo = saida[1]
+        if(int(saida[0]) == 1):
+            cenario_final(personagem_principal, personagens, amigo)
+        else:
+            print("GAME OVER")
     else:
-        saida = floresta(personagem_principal)
+        saida = floresta(personagem_principal, personagens)
+        if(saida == 2):
+            cenario_final(personagem_principal, personagens, "sozinho")
+        else:
+            print("GAME OVER")
 
 def main():
     print("##########################################################")
