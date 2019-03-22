@@ -1,9 +1,9 @@
 import random
-def batalha(personagem_principal, inimigo):
+def batalha(personagem_principal, inimigo, chance_inimigo):
 
     while(personagem_principal['vida'] > 0 and inimigo['vida'] > 0):
-        quem_inicia = random.randrange(0,10)
-        if(quem_inicia > 4):
+        quem_bate = random.randrange(0,10)
+        if(quem_bate > chance_inimigo):
             range_inicial_dano = (personagem_principal['dano'] * 30) / 100
             dano = random.randrange(int(range_inicial_dano), personagem_principal['dano'])
             print(personagem_principal['nome'], dano, "Dano")
@@ -96,6 +96,7 @@ def cenario_montanha(personagem_principal, personagens):
             " ajuda. Sem hesitar, ele(a) aceita seu pedido e segue o caminho com você.\n"+
             " Após um longo tempo caminhando você e seu mais novo(a) amigo(a) chegam ao destino final\n"+
             "a zona de guerra.\n")
+        personagem_principal['score'] += 100
     else:
         print("Você ignora o velho andarilho e segue em frente, porém, logo após andar \n"+
         "alguns minutos, você se depara com uma tremenda nevasca, o frio é intenso, sua \n"+
@@ -126,9 +127,11 @@ def cenario_floresta(personagem_principal, personagens):
             "e então percebeu que a maçã estava envenenada.\n"+
             "Mas foi tarde demais...")
         print("você morreu!")
+        print("GAME OVER")
     else:
         print("Você ignora a pequena criança, segue sua jornada caminhando por mais alguns \n"+
         "minutos, então finalmente você chega no seu objetivo final, a zona de guerra!")
+        personagem_principal['score'] += 100
 
     return entradaValida
 
@@ -144,11 +147,17 @@ def cenario_final(personagem_principal, personagens, amigo):
             if(i['nome'] != amigo):
                 inimigos.append(i)
 
-        inimigo = inimigos[random.randrange(0,3)]
+        index = random.randrange(0,3)
+        inimigo = inimigos[index]
+        del(inimigos[index])
+        print(inimigos)
         print("Entre "+ personagem_principal['nome'] + " vs " + inimigo['nome'])
-        vencedor = batalha(personagem_principal, inimigo)
-        print(vencedor)
-
+        vencedor = batalha(personagem_principal, inimigo, 2)
+        if(vencedor['nome'] == inimigo['nome']):
+            print("Você foi morto com honra em uma batalha!")
+            print("GAME OVER")
+        else:
+            print("Após derrotar o", inimigo['nome'])
 
 def start():
     personagem_principal = criacao_personagem();
